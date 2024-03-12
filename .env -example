@@ -1,0 +1,5 @@
+HOST=localhost
+PORT=3301
+USER=user
+PASSWORD=password
+

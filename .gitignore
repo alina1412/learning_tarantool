@@ -1,0 +1,10 @@
+.venv/
+my_*
+__pycache__/
+*.env
+
+.vscode
+.pytest_cache/
+.database_data/*
+
+http_ca.crt

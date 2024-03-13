@@ -4,7 +4,7 @@
 
 --sudo docker-compose up (for tarantool in docker with auth)
 
---sudo docker exec -it mytarantool console (for creating spaces as preparation for connection in console)
+--sudo docker exec -it mytarantool console (for creating spaces as preparation for connection in console, container_name in docker-compose)
 
 
 --create virtual environment

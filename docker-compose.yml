@@ -12,7 +12,7 @@ services:
 
   tarantool3:
     container_name: t3
-    image: tarantool/tarantool:2.2
+    image: tarantool/tarantool:3
     environment:
       TARANTOOL_REPLICATION: "tarantool3,tarantool4"
       TARANTOOL_USER_NAME: "admin"
@@ -24,7 +24,7 @@ services:
 
   tarantool4:
     container_name: t4
-    image: tarantool/tarantool:2.2
+    image: tarantool/tarantool:3
     environment:
       TARANTOOL_REPLICATION: "tarantool3,tarantool4"
       TARANTOOL_USER_NAME: "admin"

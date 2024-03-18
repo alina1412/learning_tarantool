@@ -1,5 +1,7 @@
 version: '2'
 
+# sudo docker run --name t5 -d -p 3303:3301 -v /conf:/var/lib/tarantool tarantool/tarantool:3
+
 services:
   # tarantool:
   #   container_name: mytarantool
@@ -11,8 +13,9 @@ services:
   #     - 3302:3301
 
   tarantool3:
-    container_name: t3
+    container_name: t5
     image: tarantool/tarantool:3
+    command: tarantool /usr/local/share/tarantool/app.init.lua
     environment:
       TARANTOOL_REPLICATION: "tarantool3,tarantool4"
       TARANTOOL_USER_NAME: "admin"
@@ -21,7 +24,9 @@ services:
       - mynet
     ports:
       - "3303:3301"
-
+    volumes:
+      - /home/alina/Documents/learning_tarantool/conf:/usr/local/share/tarantool
+      # - /home/alina/Documents/learning_tarantool/tar-data:/var/lib/tarantool
   tarantool4:
     container_name: t4
     image: tarantool/tarantool:3

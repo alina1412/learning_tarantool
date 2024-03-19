@@ -1,10 +1,19 @@
+# Learning examples for connecting to tarantool db
+(in docker)
+
+used docker image: tarantool/tarantool:3
+
+because it has type = 'uuid'
 
 
-**Installation**
+
+## **Installation**
 
 --sudo docker-compose up (for tarantool in docker with auth)
 
---sudo docker exec -it mytarantool console (for creating spaces as preparation for connection in console, container_name in docker-compose)
+(the line in docker-compose: `command: tarantool /usr/local/share/tarantool/app.init.lua` - isn't necessary. it creates some preparations for the example space. but in can be done manually)
+
+--sudo docker exec -it my_container_name console (for creating spaces as preparation for connection in console, container_name in docker-compose)
 
 
 --create virtual environment
@@ -15,3 +24,33 @@
 
 
 --run examples after preparations in console
+
+
+
+## preparations in tarantool console in docker
+
+`sudo docker exec -it my_container_name console`     # (replace with your container_name)
+
+```
+box.cfg {
+        memtx_memory = 1 * 1000 * 1024 * 1024,
+        listen = 3301,
+        checkpoint_count  = 3,
+        checkpoint_interval = 3600,
+        read_only  = false 
+}
+```
+```
+box.schema.space.create('APP')
+
+box.space.APP:format({
+    { name = 'ID', type = 'uuid' },
+    { name = 'BAND_NAME', type = 'string' },
+    { name = 'YEAR', type = 'unsigned' }
+})
+
+box.space.APP:create_index("primary", {parts={{field = 1, type = 'uuid'}}})
+
+box.space.APP:create_index('name', { unique = false, parts = { 'BAND_NAME' } })
+box.space.APP:create_index('time', { unique = false, parts = { 'YEAR' } })
+```

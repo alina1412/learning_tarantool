@@ -122,7 +122,7 @@ async def process_with_db(db, start=0, stop=1000):
 
 async def main():
     db = Db()
-    stop = 30
+    stop = 3
     i = await process_with_db(db, 0, stop)
     await db.db_disconnect()
     if i == stop:

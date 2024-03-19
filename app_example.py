@@ -59,20 +59,20 @@ class Db:
             except Exception as exc:
                 print(exc)
 
-            if self.conn:
+            if self.conn and self.conn.is_connected:
                 print(port)
                 break
         return self.conn
     
     async def db_disconnect(self):
-        if self.conn:
+        if self.conn and self.conn.is_connected:
             await self.conn.disconnect()
             self.conn = None
 
     async def execute(self, sql, args=tuple()):
         conn = await self.get_conn()
         res = None
-        if conn:
+        if conn and self.conn.is_connected:
             try:
                 res = await conn.execute(sql, args)
             except Exception as exc:
@@ -83,7 +83,7 @@ class Db:
     async def select(self, sql, args=tuple()):
         conn = await self.get_conn()
         res = None
-        if conn:
+        if conn and self.conn.is_connected:
             if not args:
                 data = await conn.execute(sql)
             else:

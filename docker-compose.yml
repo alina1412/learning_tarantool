@@ -30,6 +30,7 @@ services:
   tarantool4:
     container_name: t4
     image: tarantool/tarantool:3
+    command: tarantool /usr/local/share/tarantool/app.init.lua
     environment:
       TARANTOOL_REPLICATION: "tarantool3,tarantool4"
       TARANTOOL_USER_NAME: "admin"
@@ -38,7 +39,9 @@ services:
       - mynet
     ports:
       - "3304:3301"
-
+    volumes:
+      - /home/alina/Documents/learning_tarantool/conf:/usr/local/share/tarantool
+      # - /home/alina/Documents/learning_tarantool/tar-data:/var/lib/tarantool
 
 networks:
   mynet:
